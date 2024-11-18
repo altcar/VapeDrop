@@ -10,8 +10,11 @@ import Image from "next/image";
 
 import { firestore } from "@/../config/firebaseconfig";
 import { collection, query, where, getDocs } from "firebase/firestore";
-const ManagerContext = createContext();
+import { useAuthContext } from '@/app/component/login';
+
 export default function Home() {
+  const { posiiit, setPosiiit } = useAuthContext();
+
 
 
 
@@ -43,7 +46,7 @@ export default function Home() {
     } else {
       setError('Geolocation is not supported by this browser.');
     }
-
+    setPosiiit({ latitude: position.latitude, longitude: position.longitude });
     // Cleanup the watchPosition when the component unmounts
     return () => {
       if (watchId) {
@@ -68,6 +71,7 @@ export default function Home() {
           longitude: data.longitude == null ? -1.544253 : data.longitude
         });
       }
+      setPosiiit({ latitude: position.latitude, longitude: position.longitude });
     };
     fetchGeolocation();
   }, [error]);
@@ -116,14 +120,15 @@ export default function Home() {
   const handleMapClick = (lat, lng) => {
     setLocation({ lat, lng });
     setCenter({ lat, lng });
+    setPosiiit({ latitude: position.latitude, longitude: position.longitude });
     // console.log('Clicked location:', lat, lng);
   };
+
   //   useEffect(() => {
   //     handleMapClick(position.latitude??53.3803991, position.longitude??-1.4885347);
   // }, []);
 
   return (<>
-    <ManagerContext.Provider value={{ position, error }}>
       <div className="mx-[20px] mt-8">
         <Link href="/" className="w-[40px] h-[40px] border-2 border-white rounded-full flex justify-center items-center ml-3"> <Image src="/hamburger (1).svg" width={40} height={40} alt="account" className="rotate-90 "></Image>
         </Link>
@@ -164,8 +169,9 @@ export default function Home() {
           })()}
         </div>
       </div>
-    </ManagerContext.Provider>
   </>
   );
 }
 
+// export const useManagerContext = () => useContext(ManagerContext);
+// next js no usecontext allow export

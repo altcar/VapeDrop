@@ -7,6 +7,9 @@ import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+
+
+  const [posiiit, setPosiiit] = useState({ latitude: null, longitude: null });
   const [loginState, setLoginState] = useState(null);
 
   const handleLogin = async () => {
@@ -61,7 +64,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ loginState, handleLogin, handleLogout }}>
+    <AuthContext.Provider value={{ loginState, handleLogin, handleLogout,posiiit, setPosiiit }}>
       {children}
     </AuthContext.Provider>
   );

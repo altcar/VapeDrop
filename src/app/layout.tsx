@@ -32,9 +32,9 @@ export default function RootLayout({
 
       >
          {/* overflow-hidden */}
-         {/* <AuthProvider> */}
+         <AuthProvider>
           {children}
-        {/* </AuthProvider> */}
+        </AuthProvider>
       </body>
     </html>
   );

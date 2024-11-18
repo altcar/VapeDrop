@@ -1,16 +1,21 @@
 import Image from 'next/image'
 import {  useState, useEffect,useContext } from "react";
-import {ManagerContext} from "../../find/page";   
+import { useAuthContext } from '@/app/component/login';
+
+
 export default function Hotspot({ imageSrc, title, subtitle,  origin, destination}) {
-  const { position, error } = useContext(ManagerContext);
-      // const [origin, setOrigin] = useState("");
+
+    const { posiiit, usePosiiit } = useAuthContext();
+  
+     // const [origin, setOrigin] = useState("");
       // const [destination, setDestination] = useState("");
       const [result, setResult] = useState(null);
     
       useEffect(() => {
+        console.log(posiiit);
       const calculateDistance = async () => { 
         const response = await fetch(
-          `/api/distance?origin=${position.latitude},${position.longitude}&destination=${JSON.parse(destination).lat},${JSON.parse(destination).lng}`
+          `/api/distance?origin=${posiiit.latitude},${posiiit.longitude}&destination=${JSON.parse(destination).lat},${JSON.parse(destination).lng}`
         );
         const data = await response.json();
         // console.log(data);      
@@ -19,7 +24,7 @@ export default function Hotspot({ imageSrc, title, subtitle,  origin, destinatio
       
         calculateDistance();
       
-    }, [position]);
+    }, [posiiit]);
       return(
         <>
          <div className="bg-blue-700 flex flex-row justify-start items-center rounded-xl overflow-hidden my-1 h-[105px]">
