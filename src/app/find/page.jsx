@@ -10,7 +10,7 @@ import Image from "next/image";
 
 import { firestore } from "@/../config/firebaseconfig";
 import { collection, query, where, getDocs } from "firebase/firestore";
-export const ManagerContext = createContext();
+const ManagerContext = createContext();
 export default function Home() {
 
 
