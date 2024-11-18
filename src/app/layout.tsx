@@ -17,6 +17,7 @@ export const metadata: Metadata = {
   title: "VapeDrop Rewards",
   description: "Rewards for VapeDrop users",
 };
+import { AuthProvider } from '@/app/component/login';
 
 export default function RootLayout({
   children,
@@ -31,7 +32,9 @@ export default function RootLayout({
 
       >
          {/* overflow-hidden */}
-        {children}
+         <AuthProvider>
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );

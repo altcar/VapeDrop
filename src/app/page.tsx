@@ -4,7 +4,18 @@ import Image from "next/image";
 import Foot from "./component/webstuff/footer";
 import Past from "./component/webstuff/drophistory";
 import profile from "../../public/profile.svg";
+
+
+import { useEffect, useState } from 'react';
+import { firestore } from "@/../config/firebaseconfig";
+import { doc, getDoc,collection, query, where, getDocs, orderBy, limit } from 'firebase/firestore';
+
+
+import { useAuthContext } from '@/app/component/login';
+
 export default function Home() {
+  const { loginState, handleLogin, handleLogout } = useAuthContext();
+
   let greeting = "";
 
   const now = new Date();
@@ -25,16 +36,59 @@ export default function Home() {
       break;
   }
   const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-  const name = "John Doe";
 
+
+  const [locationData, setLocationData] = useState<string | null>(null);
+  const [name, setName] = useState<string | null>(null);
+
+  
+  useEffect(() => {
+      const fetchData = async () => {
+        
+        if(loginState?.uid != undefined){
+          const docRef = doc(firestore, 'user', loginState.uid); // Adjust the path as needed
+          const docSnap = await getDoc(docRef);
+          
+          if (docSnap.exists()) {
+              const data = docSnap.data();
+              console.log(data);
+              setName(JSON.stringify(data, null, 2));
+          } else {
+              console.log("No such document!");
+          }         
+  
+          const q = query(collection(firestore, "past"), where("user", "==", loginState.uid),orderBy("time", "desc"), limit(3));
+                      const querySnapshot = await getDocs(q);
+                      const locationarray:any[] = [];
+                      querySnapshot.forEach((doc) => {
+                        // doc.data() is never undefined for query doc snapshots
+                        // console.log(doc.id, " => ", doc.data());
+                        locationarray.push(doc.data());
+                      });
+                      console.log(locationarray);
+                      setLocationData(JSON.stringify(locationarray, null, 2));
+          
+                    }
+          
+   }   
+
+      fetchData();
+  }, [loginState]);
+
+
+
+
+  
   return (<>
     <div className="mx-[20px] mt-8">
       <div className="flex justify-between flex-row">
         <div className="flex flex-col">
           <h2>{weekday[new Date().getDay()]}{", "}{new Date().getDate()} {new Date().toLocaleString('default', { month: 'long' })} {new Date().getFullYear()}</h2>
-          <h1 className="text-2xl font-semibold">{greeting}{" "}{name ?? ""}</h1>
+          <h1 className="text-2xl font-semibold">{greeting}{" "}
+            {name ? JSON.parse(name)?.name ?? "Please log in =>" : "Please log in =>"}</h1>
         </div>
-        <a href="/account"><Image src={profile} width={45} height={45} alt="account" className=" invert"></Image></a>
+
+        <a href={loginState == null ? "#" : "/account"} onClick={loginState == null ? handleLogin : undefined}><Image src={profile} width={45} height={45} alt="account" className=" invert"></Image></a>
 
       </div>
       <div className="h-[35vh] bg-purple-700 rounded-xl my-4 w-full overflow-hidden">
@@ -47,7 +101,11 @@ export default function Home() {
               }} ></div>
             <div className="ml-5">
               <h2 className="text-xs">So far you have earned</h2>
-              <p className="font-extrabold text-2xl">1,200</p>
+              <a href="/account/points" className="flex flex-row justify-center items-center" >
+         
+              <p className="font-extrabold text-2xl">{name ? JSON.parse(name)?.points ?? "0" : "0"}</p>
+              <div className="inline bg-green-500/90 font-bold  px-2 rounded-xl ml-2">Exchange</div>
+            </a>
             </div>
           </div>
 
@@ -66,10 +124,17 @@ export default function Home() {
           <h2>Previous Deposits</h2>
           <a href="/account/history">View all	&rarr;</a>
         </div>
-
-        <Past></Past>
-        <Past></Past>
-        <Past></Past>
+        {(() => {
+  try {
+    const data = JSON.parse(locationData ?? "");
+    return data.map((element: any, index: React.Key | null | undefined) => (
+      <div key={index}>{<Past sendedlocation={element.location} sendedtime={JSON.stringify(element.time)}/>}</div>
+    ));
+  } catch (error) {
+    // console.error("Failed to parse locationData:", error);
+    return null;
+  }
+})()}
       </div>
     </div>
     <Foot></Foot>

@@ -1,44 +1,45 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Map from "../map";
+import Image from "next/image";
+import { firestore } from "@/../config/firebaseconfig";
+import { doc, getDoc } from 'firebase/firestore';
 
-export default function DropHistory(props) {
-  const [location, setLocation] = useState({ latitude: 0, longitude: 0 });
-  // const [error, setError] = useState(null);
-  useEffect(() => {
-    // getUserLocation(setLocation, setError);
-  }, []);
+
+export default function DropHistory({ sendedlocation, sendedtime }) {
+
+
+  const [name, setName] = useState(null);
 
   useEffect(() => {
-    if ("geolocation" in navigator) {
-      // Retrieve latitude & longitude coordinates from `navigator.geolocation` Web API
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          // Handle position data here
-          const { latitude, longitude } = position.coords;
-          setLocation({ latitude, longitude });
-        },
-        (error) => {
-          console.error(`Geolocation error: ${error.message} `);
-        },
-        {
-          // Options object for enabling high accuracy
-          enableHighAccuracy: true,
-          timeout: 5000,
-          maximumAge: 0,
-        }
-      );
-    }
+      const fetchData = async () => {
+          const docRef = doc(firestore, 'location', sendedlocation); // Adjust the path as needed
+          const docSnap = await getDoc(docRef);
+          console.log(docSnap);
+          if (docSnap.exists()) {
+              const data = docSnap.data();
+              setName(JSON.stringify(data, null, 2));
+          } else {
+              console.log("No such document!");
+          }
+      };
+
+      fetchData();
   }, []);
+  const date = new Date(JSON.parse(sendedtime).seconds*1000);
+  const formattedTime = date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+  });
+
+
   return (
     <div className="bg-blue-700 flex flex-row justify-start items-center rounded-xl overflow-hidden my-4">
       <div className="py-[0.05rem]">
-        {location.latitude == 0 && location.longitude == 0 ? (
-          "please turn on GPS"
-        ) : (
-          <Map poslat={location.latitude} poslong={location.longitude}></Map>
-        )}
+       <Image src={name ? JSON.parse(name).image ?? "" : ""} width={200} height={100} alt="location image"></Image>
       </div>
       <div className="w-full py-[0.4rem]">
         <div className="border-b-[1px] ">
@@ -50,8 +51,9 @@ export default function DropHistory(props) {
               }}
             ></div>
             <div className="mb-[0.5rem]">
-              <div className="font-bold">The Village Shop</div>
-              <div className="-my-[0.3rem] text-sm">Sep 16, 2024</div>
+              <div className="font-bold">{name ? JSON.parse(name)?.name ?? "0" : "0"}</div>
+              <div className="-my-[0.3rem] text-sm">{formattedTime}</div>
+            
             </div>
           </div>
         </div>

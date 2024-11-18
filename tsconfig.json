@@ -21,6 +21,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/find/page.jsx", "src/app/api/distance/route.js", "src/app/api/distance/route.js", "src/app/api/distance/route.js", "src/app/component/login.js", "src/app/page.jsx", "src/app/firebasetest/page.jsx"],
   "exclude": ["node_modules"]
 }
