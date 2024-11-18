@@ -1,6 +1,4 @@
-export const config = {
-    runtime: 'edge',
-  };
+export const runtime = "edge"
   
 export async function GET(request: Request, { params }: any) {
     const ip = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || '127.0.0.1';

@@ -4,7 +4,7 @@ import { signInWithPopup, signOut, onAuthStateChanged } from 'firebase/auth';
 import { auth, googleProvider, analytics } from '@/../config/firebaseconfig';
 import { logEvent } from 'firebase/analytics';
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
-const AuthContext = createContext(null);
+const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [loginState, setLoginState] = useState(null);
