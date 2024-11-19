@@ -56,6 +56,7 @@ export default function Home() {
               lat: data.latitude,
               lng: data.longitude
             });
+            console.log(posiiit);
             }
         },
         {
@@ -77,6 +78,7 @@ export default function Home() {
             lat: data.latitude,
             lng: data.longitude
           });
+          console.log(posiiit);
           }
 
         }
