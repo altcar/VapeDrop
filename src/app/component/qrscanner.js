@@ -1,27 +1,12 @@
 "use client"
 import { useState, useEffect } from 'react';
+// import dynamic from 'next/dynamic';
 import { QrReader } from 'react-qr-reader';
 
-const QrScanner = ({ onScanResult }) => {
-  const [result, setResult] = useState('');
-  const [devices, setDevices] = useState([]);
-  const [selectedDeviceId, setSelectedDeviceId] = useState('');
-  useEffect(() => {
-    console.log(selectedDeviceId);
-  }, [selectedDeviceId]);
-  useEffect(() => {
-    // getContext('2d', { willReadFrequently: true }); 
-    const getDevices = async () => {
-      const devices = await navigator.mediaDevices.enumerateDevices();
-      const videoDevices = devices.filter(device => device.kind === 'videoinput');
-      setDevices(videoDevices);
-      if (videoDevices.length > 0) {
-        setSelectedDeviceId(videoDevices[0].deviceId);
-      }
-    };
+// const QrReader = dynamic(() => import('react-qr-reader'), { ssr: false });
 
-    getDevices();
-  }, []);
+const QrScanner = ({ onScanResult, deviceid }) => {
+  const [result, setResult] = useState('');
 
   const handleScan = (data) => {
     if (data) {
@@ -38,21 +23,15 @@ const QrScanner = ({ onScanResult }) => {
 
   return (
     <div>
-      <select onChange={(e) => setSelectedDeviceId(e.target.value)} value={selectedDeviceId}>
-        {devices.map((device, index) => (
-          <option key={index} value={device.deviceId}>
-            {device.label || `Camera ${index + 1}`}
-          </option>
-        ))}
-      </select>
+      
       <QrReader
-        key={selectedDeviceId} // Add key prop to force re-render
+        key={deviceid} // Add key prop to force re-render
         delay={300}
         onResult={(result, error) => {
           if (!!result)             handleScan(result); 
           if (!!error)             handleError(error);
         }}
-        constraints={{ deviceId: selectedDeviceId ? selectedDeviceId : undefined , facingMode: 'environment' }}
+        constraints={{ deviceId: deviceid ? deviceid : undefined , facingMode: 'environment' }}
       />
       <p>{result}</p>
     </div>
