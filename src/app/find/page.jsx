@@ -48,12 +48,14 @@ export default function Home() {
           console.error(error.message);
           const response = await fetch('/api/geolocation');
           const data = await response.json();
-          // console.log(data.latitude, data.longitude);
+          console.log(1);
+          console.log(data.latitude, data.longitude);
           if(data.latitude != null ){
-            setPosiiit({
-              lat: data.latitude == null ? 53.380795 : data.latitude,
-              lng: data.longitude == null ? -1.484205 : data.longitude
-            });}
+            // setPosiiit({
+            //   lat: data.latitude == null ? 53.380795 : data.latitude,
+            //   lng: data.longitude == null ? -1.484205 : data.longitude
+            // });
+            }
         },
         {
           enableHighAccuracy: true,
@@ -67,12 +69,14 @@ export default function Home() {
           console.error('Geolocation is not supported by this browser.');
           const response = await fetch('/api/geolocation');
           const data = await response.json();
-          // console.log(data.latitude, data.longitude);
+          console.log(2);
+          console.log(data.latitude, data.longitude);
           if(data.latitude != null ){
-          setPosiiit({
-            lat: data.latitude == null ? 53.380795 : data.latitude,
-            lng: data.longitude == null ? -1.484205 : data.longitude
-          });}
+          // setPosiiit({
+          //   lat: data.latitude == null ? 53.380795 : data.latitude,
+          //   lng: data.longitude == null ? -1.484205 : data.longitude
+          // });
+          }
 
         }
       }
