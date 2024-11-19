@@ -45,6 +45,9 @@ const MyGoogleMap: React.FC<GoogleMapProps> = ({ center, onClick ,routelat,route
   };
   React.useEffect(() => {
     if (isLoaded) {
+      console.log("is loaded")
+      console.log(center)
+      console.log(routelat, routelng)
       calculateRoute(center.lat, center.lng);
     }
   }, [routelat, routelng]);

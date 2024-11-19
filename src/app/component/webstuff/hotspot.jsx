@@ -5,24 +5,25 @@ import { useAuthContext } from '@/app/component/login';
 
 export default function Hotspot({ imageSrc, title, subtitle,  origin, destination}) {
 
-    const { posiiit, usePosiiit } = useAuthContext();
+    const { posiiit} = useAuthContext();
   
      // const [origin, setOrigin] = useState("");
       // const [destination, setDestination] = useState("");
       const [result, setResult] = useState(null);
     
       useEffect(() => {
-        console.log(posiiit);
       const calculateDistance = async () => { 
+        if(posiiit.lat) {
         const response = await fetch(
-          `/api/distance?origin=${posiiit.latitude},${posiiit.longitude}&destination=${JSON.parse(destination).lat},${JSON.parse(destination).lng}`
+          `/api/distance?origin=${posiiit.lat},${posiiit.lng}&destination=${JSON.parse(destination).lat},${JSON.parse(destination).lng}`
         );
         const data = await response.json();
         // console.log(data);      
         setResult(data);}
-
-      
+        // console.log(result?.distance?.text)
+        }
         calculateDistance();
+      
       
     }, [posiiit]);
       return(

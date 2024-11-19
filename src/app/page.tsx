@@ -54,7 +54,7 @@ export default function Home() {
               console.log(data);
               setName(JSON.stringify(data, null, 2));
           } else {
-              console.log("No such document!");
+              console.log("please log in");
           }         
   
           const q = query(collection(firestore, "past"), where("user", "==", loginState.uid),orderBy("time", "desc"), limit(3));

@@ -4,12 +4,15 @@ import { signInWithPopup, signOut, onAuthStateChanged } from 'firebase/auth';
 import { auth, googleProvider, analytics } from '@/../config/firebaseconfig';
 import { logEvent } from 'firebase/analytics';
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
+
+import { firestore } from "@/../config/firebaseconfig";
+import { collection, query, where, getDoc, doc, setDoc } from "firebase/firestore";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
 
 
-  const [posiiit, setPosiiit] = useState({ latitude: null, longitude: null });
+  const [posiiit, setPosiiit] = useState({  lat:   53.38145,lng: -1.488558});
   const [loginState, setLoginState] = useState(null);
 
   const handleLogin = async () => {
@@ -20,6 +23,11 @@ export const AuthProvider = ({ children }) => {
       const token = credential.accessToken;
       // The signed-in user info.
       const user = result.user;
+
+
+      checkexist(user)
+
+
       // IdP data available using getAdditionalUserInfo(result)
       // ...
       setLoginState(result.user);
@@ -28,6 +36,18 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+ function checkexist(user){ 
+  const docRef = doc(firestore, 'user', user.uid); 
+  console.log("setting")
+  setDoc(docRef,{
+    name: user.displayName,
+    email: user.email,
+    photo: user.photoURL,
+    points: 0,
+  }, { merge: true })
+          
+      
+    }
 
   const handleLogout = async () => {
     try {
