@@ -29,7 +29,7 @@ const QrScanner = ({ onScanResult, deviceid }) => {
         onError={handleError}
         onScan={handleScan}
         faceMode="user"
-        constraints={{ video: { deviceId: deviceid ? { exact: deviceid } : undefined } ,    facingMode: { exact: "environment" }, }
+        constraints={{ video: { deviceId: deviceid ? { exact: deviceid } : undefined } ,    facingMode: { exact: "environment" }} }
       />
       {/* <p>{result}</p> */}
     </div>
