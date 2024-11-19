@@ -23,15 +23,15 @@ const QrScanner = ({ onScanResult, deviceid }) => {
 
   return (
     <div>
-      
+
       <QrReader
         key={deviceid} // Add key prop to force re-render
         delay={300}
         onResult={(result, error) => {
-          if (!!result)             handleScan(result); 
-          if (!!error)             handleError(error);
+          if (!!result) handleScan(result);
+          if (!!error) handleError(error);
         }}
-        constraints={{ deviceId: deviceid ? deviceid : undefined , facingMode: 'environment' }}
+        constraints={{ deviceId: deviceid ? deviceid : undefined, facingMode: 'environment' }}
       />
       <p>{result}</p>
     </div>

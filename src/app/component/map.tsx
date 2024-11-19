@@ -73,7 +73,7 @@ const MyGoogleMap: React.FC<GoogleMapProps> = ({ center, onClick ,routelat,route
   return isLoaded ? (<>
     <GoogleMap
       mapContainerStyle={containerStyle}
-      center={center}
+      // center={center}
       zoom={15}
       onLoad={onLoad}
       onUnmount={onUnmount}
