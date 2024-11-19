@@ -55,7 +55,7 @@ const MyGoogleMap: React.FC<GoogleMapProps> = ({ center, onClick ,routelat,route
       {
         origin: { lat, lng },
         destination: { lat: routelat, lng: routelng },
-        travelMode: google.maps.TravelMode.DRIVING,
+        travelMode: google.maps.TravelMode.WALKING,
       },
       (result, status) => {
         if (status === google.maps.DirectionsStatus.OK) {
