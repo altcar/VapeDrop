@@ -51,8 +51,8 @@ export default function Home() {
           console.log(1);
           console.log(data.latitude, data.longitude);
             setPosiiit({
-              lat: data.latitude == null ? 53.380795 : `${data.latitude}`,
-              lng: data.longitude == null ? -1.484205 : `${data.longitude}`
+              lat: data.latitude == null ? 53.380795 : data.latitude,
+              lng: data.longitude == null ? -1.484205 : data.longitude
             });
             
         },
