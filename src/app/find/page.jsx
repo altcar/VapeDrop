@@ -121,6 +121,7 @@ export default function Home() {
     setLocation({ lat, lng });
     setCenter({ lat, lng });
     setPosiiit({ latitude: position.latitude, longitude: position.longitude });
+    console.log(posiiit)
     // console.log('Clicked location:', lat, lng);
   };
 
