@@ -15,9 +15,7 @@ const QrCodeGenerator = () => {
   const [devices, setDevices] = useState([]);
   const [selectedDeviceId, setSelectedDeviceId] = useState('');
   const [cameraPermission, setCameraPermission] = useState(null);
-  useEffect(() => {
-    console.log(selectedDeviceId);
-  }, [selectedDeviceId]);
+
   useEffect(() => {
     function detectcamera() {
       navigator.mediaDevices.enumerateDevices().then((mediaDevices) => {

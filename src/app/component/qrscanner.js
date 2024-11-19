@@ -6,8 +6,11 @@ const QrScanner = ({ onScanResult }) => {
   const [result, setResult] = useState('');
   const [devices, setDevices] = useState([]);
   const [selectedDeviceId, setSelectedDeviceId] = useState('');
-
   useEffect(() => {
+    console.log(selectedDeviceId);
+  }, [selectedDeviceId]);
+  useEffect(() => {
+    // getContext('2d', { willReadFrequently: true }); 
     const getDevices = async () => {
       const devices = await navigator.mediaDevices.enumerateDevices();
       const videoDevices = devices.filter(device => device.kind === 'videoinput');
@@ -45,9 +48,11 @@ const QrScanner = ({ onScanResult }) => {
       <QrReader
         key={selectedDeviceId} // Add key prop to force re-render
         delay={300}
-        onError={handleError}
-        onScan={handleScan}
-        constraints={{ video: { deviceId: selectedDeviceId ? { exact: selectedDeviceId } : undefined } }}
+        onResult={(result, error) => {
+          if (!!result)             handleScan(result); 
+          if (!!error)             handleError(error);
+        }}
+        constraints={{ deviceId: { deviceId: selectedDeviceId ? { exact: selectedDeviceId } : undefined } }}
       />
       <p>{result}</p>
     </div>
