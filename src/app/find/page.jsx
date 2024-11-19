@@ -50,11 +50,12 @@ export default function Home() {
           const data = await response.json();
           console.log(1);
           console.log(data.latitude, data.longitude);
+          if(data.latitude != null ){
             setPosiiit({
-              lat: data.latitude == null ? 53.380795 : data.latitude,
-              lng: data.longitude == null ? -1.484205 : data.longitude
+              lat: data.latitude,
+              lng: data.longitude
             });
-            
+            }
         },
         {
           enableHighAccuracy: true,
@@ -70,11 +71,12 @@ export default function Home() {
           const data = await response.json();
           console.log(2);
           console.log(data.latitude, data.longitude);
+          if(data.latitude != null ){
           setPosiiit({
-            lat: data.latitude == null ? 53.380795 : data.latitude,
-            lng: data.longitude == null ? -1.484205 : data.longitude
+            lat: data.latitude,
+            lng: data.longitude
           });
-          
+          }
 
         }
       }

@@ -10,9 +10,7 @@ import { collection, query, where, getDoc, doc, setDoc } from "firebase/firestor
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-
-
-  const [posiiit, setPosiiit] = useState({  lat:   53.38145,lng: -1.488558});
+  const [posiiit, setPosiiit] = useState({  lat: 53.380795 ,lng: -1.484205 });
   const [loginState, setLoginState] = useState(null);
 
   const handleLogin = async () => {
