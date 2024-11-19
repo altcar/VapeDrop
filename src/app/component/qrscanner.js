@@ -43,6 +43,7 @@ const QrScanner = ({ onScanResult }) => {
         ))}
       </select>
       <QrReader
+        key={selectedDeviceId} // Add key prop to force re-render
         delay={300}
         onError={handleError}
         onScan={handleScan}
