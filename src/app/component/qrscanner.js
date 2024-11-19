@@ -5,7 +5,7 @@ import { QrReader } from 'react-qr-reader';
 
 // const QrReader = dynamic(() => import('react-qr-reader'), { ssr: false });
 
-const QrScanner = ({ onScanResult, constrit }) => {
+const QrScanner = ({ onScanResult, deviceid }) => {
   const [result, setResult] = useState('');
 
   const handleScan = (data) => {
@@ -28,7 +28,8 @@ const QrScanner = ({ onScanResult, constrit }) => {
         delay={300}
         onError={handleError}
         onScan={handleScan}
-        constraints={constrit}
+        faceMode="user"
+        constraints={{ video: { deviceId: deviceid ? { exact: deviceid } : undefined } ,    facingMode: { exact: "environment" }, }
       />
       {/* <p>{result}</p> */}
     </div>
