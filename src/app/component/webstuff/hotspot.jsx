@@ -60,7 +60,7 @@ export default function Hotspot({ imageSrc, title, subtitle,  origin, destinatio
             <div className="flex flex-row justify-center items-center ">
             
             <p className="text-lg font-extrabold">{result?.distance?.text == null? "-":result.duration.text}</p>
-            <h2 className="text-sm mt-1">minutes</h2>
+            <h2 className="text-sm mt-1">{/*minutes*/}</h2>
             </div>
           </div>
 

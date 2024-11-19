@@ -28,7 +28,7 @@ export default function RootLayout({
     <html lang="en">
       <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased w-full h-full overflow-x-hidden`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased w-full max-w-[500px] mx-auto h-full overflow-x-hidden`}
 
       >
          {/* overflow-hidden */}
