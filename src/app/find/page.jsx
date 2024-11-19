@@ -141,7 +141,7 @@ export default function Home() {
         )} */}
     </div>
 
-    <a href={`geo:${routelat.lat},${routelat.lng}`} target="_blank" className="fixed h-[60px] w-[60px] bottom-[230px] right-[20px] flex justify-center items-center rounded-full bg-yellow-300">
+    <a href={`https://www.google.com/maps/dir/?api=1&origin=${posiiit.lat},${posiiit.lng}&destination=${routelat.lat},${routelat.lng}&travelmode=walking`} target="_blank" className="fixed h-[60px] w-[60px] bottom-[230px] right-[20px] flex justify-center items-center rounded-full bg-yellow-300">
       <button>
         <div className="w-[25px] h-[25px] "
           dangerouslySetInnerHTML={{
