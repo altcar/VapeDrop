@@ -37,8 +37,9 @@ export default function Home() {
     let watchId;
 
     if (typeof window !== 'undefined' && 'geolocation' in navigator) {
-      watchId = navigator.geolocation.watchPosition(
-        (position) => {
+      // watchId = navigator.geolocation.watchPosition(
+        watchId = navigator.geolocation.getCurrentPosition(
+          (position) => {
           setPosiiit({
             lat: position.coords.latitude,
             lng: position.coords.longitude,
