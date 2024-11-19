@@ -52,7 +52,7 @@ const QrScanner = ({ onScanResult }) => {
           if (!!result)             handleScan(result); 
           if (!!error)             handleError(error);
         }}
-        constraints={{ deviceId: { deviceId: selectedDeviceId ? { exact: selectedDeviceId } : undefined } }}
+        constraints={{ deviceId: selectedDeviceId ? { exact: selectedDeviceId } : undefined , facingMode: 'environment' }}
       />
       <p>{result}</p>
     </div>

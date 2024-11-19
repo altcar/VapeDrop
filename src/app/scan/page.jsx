@@ -14,7 +14,6 @@ const QrCodeGenerator = () => {
 
   const [devices, setDevices] = useState([]);
   const [selectedDeviceId, setSelectedDeviceId] = useState('');
-  const [cameraPermission, setCameraPermission] = useState(null);
 
   useEffect(() => {
     function detectcamera() {
@@ -33,11 +32,9 @@ const QrCodeGenerator = () => {
     async function checkCameraPermission() {
       try {
         const permissionStatus = await navigator.permissions.query({ name: 'camera' });
-        setCameraPermission(permissionStatus.state);
         if (permissionStatus.state === 'granted') detectcamera();
         permissionStatus.onchange = () => {
           if (permissionStatus.state === 'granted') detectcamera();
-          setCameraPermission(permissionStatus.state);
         };
       } catch (error) {
         console.error("Error checking camera permission:", error);
