@@ -17,22 +17,6 @@ const QrScanner = ({ onScanResult, deviceid }) => {
     }
   };
 
-  const [devices, setDevices] = useState([]);
-  const [selectedDeviceId, setSelectedDeviceId] = useState('');
-
-  useEffect(() => {
-    function detectcamera() {
-      navigator.mediaDevices.enumerateDevices().then((mediaDevices) => {
-        const videoDevices = mediaDevices.filter(({ kind }) => kind === 'videoinput');
-        setDevices(videoDevices);
-        if (videoDevices.length > 0) {
-          const backCamera = videoDevices.find(device => device.label.toLowerCase().includes('back') || device.label.toLowerCase().includes('rear'));
-          setSelectedDeviceId(backCamera ? backCamera.deviceId : videoDevices[0].deviceId);
-        }
-      });
-    }
-detectcamera();
-  }, []);
 
   const handleError = (err) => {
     console.error(err);

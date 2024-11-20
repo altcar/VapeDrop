@@ -58,7 +58,8 @@ const QrCodeGenerator = () => {
         <div className="flex justify-center items-center h-[50vh]">
           <div className="w-[300px] h-[300px] bg-white min-h-[200px]">
             {scan && <QRCodeSVG value="https://reactjs.org/" className="w-[90%] h-full mx-auto" />}
-            {!scan && (<QrScanner onScanResult={handleScanResult} deviceid={selectedDeviceId} />)}
+            {!scan && (<QrScanner />)}
+            {/* onScanResult={handleScanResult} deviceid={selectedDeviceId} */}
           </div>
         </div>
         <select onChange={(e) => setSelectedDeviceId(e.target.value)} value={selectedDeviceId}>
