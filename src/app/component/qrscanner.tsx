@@ -21,7 +21,10 @@ const BarcodeScanner = () => {
       deviceId,
       onDecodeResult(result) {
         setResult(result.getText());
+        alert(result.getText());
+        window.location.href = "/";
       },  
+      constraints: { video: { facingMode: 'environment' }, audio: false }
     });
 
     const changeDeviceId = (id: string) => {
@@ -42,7 +45,7 @@ const BarcodeScanner = () => {
       ) : (
         <strong>Unfortunately, torch is not available on this device.</strong>
       )}
-      <video key={deviceId} ref={ref} />
+      <video key={deviceId} ref={ref} className="h-full" />
       <p>
         <span>Last result:</span>
         <span>{result}</span>
