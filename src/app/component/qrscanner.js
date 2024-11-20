@@ -31,7 +31,7 @@ const QrScanner = ({ onScanResult, deviceid }) => {
         }
       });
     }
-
+detectcamera();
   }, []);
 
   const handleError = (err) => {
@@ -42,13 +42,13 @@ const QrScanner = ({ onScanResult, deviceid }) => {
   }, [deviceid]);
   return (
     <div>
-      <select onChange={(e) => setSelectedDeviceId(e.target.value)} value={selectedDeviceId}>
+      <select onChange={(e) => setSelectedDeviceId(e.target.value)} value={deviceid}>
           {devices.map((device, key) => (
             <option value={device.deviceId} key={key}>
               {device.label || `Device ${key + 1}`}
             </option>
           ))}
-        </select> <p>Scan Result: {scanResult}</p>
+        </select>
       <QrReader
         key={deviceid} // Add key prop to force re-render
         delay={300}
