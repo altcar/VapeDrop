@@ -19,7 +19,8 @@
     "react": "^18",
     "react-dom": "^18",
     "react-qr-code": "^2.0.15",
-    "react-qr-reader": "^3.0.0-beta-1"
+    "react-qr-reader": "^3.0.0-beta-1",
+    "webrtc-adapter": "^9.0.1"
   },
   "devDependencies": {
     "@types/google.maps": "^3.58.0",
