@@ -45,18 +45,19 @@ const MyGoogleMap: React.FC<GoogleMapProps> = ({ center, onClick ,routelat,route
   };
   React.useEffect(() => {
     if (isLoaded) {
-      // console.log("is loaded")
-      // console.log(center)
-      // console.log(routelat, routelng)
-      calculateRoute(center.lat, center.lng);
+      console.log("is loaded")
+      console.log(center)
+      console.log(routelat, routelng)
+      calculateRoute(center.lat.toString(), center.lng.toString());
     }
   }, [routelat, routelng]);
 
-  const calculateRoute = (lat: number, lng: number) => {
+  const calculateRoute = (lat: string, lng: string) => {
     const directionsService = new google.maps.DirectionsService();
+    console.log(typeof(lat), typeof(lng), typeof(routelat), typeof(routelng))
     directionsService.route(
       {
-        origin: { lat, lng },
+        origin: { lat:parseFloat(lat), lng:parseFloat(lng) },
         destination: { lat: routelat, lng: routelng },
         travelMode: google.maps.TravelMode.WALKING,
       },
