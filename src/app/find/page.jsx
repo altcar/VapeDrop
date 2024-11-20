@@ -122,7 +122,7 @@ export default function Home() {
   const handleMapClick = (lat, lng) => {
     // setLocation({ lat, lng });
     // setCenter({ lat, lng });
-    if (setError == null)
+    // if (setError == null)
     setPosiiit({ lat, lng });
     // console.log(posiiit)
     // console.log('Clicked location:', lat, lng);
