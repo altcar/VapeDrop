@@ -40,7 +40,7 @@ const MyGoogleMap: React.FC<GoogleMapProps> = ({ center, onClick ,routelat,route
       if (mapRef.current) {
         // mapRef.current.setCenter({ lat, lng });
       }
-      calculateRoute(lat, lng);
+      calculateRoute(lat.toString(), lng.toString());
     }
   };
   React.useEffect(() => {
